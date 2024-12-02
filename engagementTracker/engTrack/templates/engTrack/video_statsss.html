@@ -1,0 +1,31 @@
+{% extends 'engTrack/layout.html' %}
+
+{% block title %}Фотография{% endblock %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="all_photos">
+   <div class="single_photo_block">
+					<img src="{{ object }}" alt="" class="photo_in_block">
+					<div class="like_and_comment_section">
+						<div class="like_block">
+							<i class="bi bi-suit-heart like_icon"></i>
+							<p class="like_counter">{{ object.video_name }}</p>
+							<p class="like_counter">{{ object.video_upload_date|date:"d.m.Y" }}</p>
+						</div>
+					</div>
+					<div class="comment_section">
+						{% for video_stat in videostats_list %}
+						{% if video_stat.video_source.id == object.id %}
+						<div class="single_comment">
+							<h1 class="author_comment">{{ video_stat.timecode|date:"H:i:s" }}</h1>
+							<p class="comment_text">{{ video_stat.total_faces }}</p>
+							<p class="comment_text">{{ video_stat.engaged_faces }}</p>
+							<p class="comment_text">{{ video_stat.engagement_percentage }}</p>
+						</div>
+						{% endif %}
+						{% endfor %}
+					</div>
+	 </div>
+</div>
+{% endblock %}

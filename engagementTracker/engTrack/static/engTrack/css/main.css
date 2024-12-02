@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+*
+{
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body
+{
+    background-color: #0f0f0f;
+}
+
+header
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    background: pink;
+}
+
+header ul 
+{
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+header ul li
+{
+    position: relative;
+}
+
+header ul li a
+{
+    display: block;
+    padding: 10px 15px;
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+    transition: background-color 0.3s;
+}
+
+header ul li a:hover {
+    background-color: #ffcccc;
+}
+
+header ul li ul.dropdown 
+{
+    list-style: none;
+    position: absolute;
+    top: 100%; /* Меню появляется под родительским элементом */
+    left: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 5px 0;
+    z-index: 999;
+    display: none;
+}
+
+header ul li ul.dropdown li 
+{
+    width: 200px; /* Ширина выпадающего меню */
+}
+
+header ul li ul.dropdown li a {
+    padding: 10px 15px;
+    background: white;
+    color: black;
+    font-size: 18px;
+}
+
+header ul li ul.dropdown li a:hover {
+    background-color: #ffcccc;
+}
+
+header ul li:hover ul.dropdown 
+{
+    display: block;
+}
+
+
+main
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #0f0f0f;
+    color: white;
+}
+
+footer
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #0f0f0f;
+    color: white;
+}
+
+#index_auth_button
+{
+    /* border: 2px solid #252525; */
+	border-radius: 40px;
+	background-color: rgb(231, 130, 130);
+    /* width: 300px; */
+    transition: 0.5s ease;
+}
+
+#index_auth_button a
+{
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+}
+
+.video_upload_field
+{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#upload_button
+{
+    width: 60%;
+    background-color: #ffcccc;
+    color:rgb(34, 34, 34);
+    font-size: 25px;
+    border: 0px;
+    border-radius: 25px;
+    margin: 10px;
+    transition: ease 0.5s;
+}
+
+#upload_button:hover
+{
+    background-color: #d4a3a3;
+}
+
+.single_video_frame
+{
+    margin: 10px;
+	border-radius: 25px;
+    width: 400px;
+    padding: 15px;
+    background-color: white;
+    color: #0f0f0f;
+}
+
+.single_video_frame a
+{
+    text-decoration: none;
+    color: black;
+}
+
+.done
+{
+    border: 2px solid rgb(161, 161, 161);
+    transition: ease 0.5s;
+}
+
+.done:hover
+{
+    border: 10px solid greenyellow;
+	border-radius: 5px;
+}
+
+.processing
+{
+    border: 2px solid rgb(161, 161, 161);
+	border-radius: 40px;
+    transition: ease 0.5s;
+}
+
+.processing:hover
+{
+    border: 2px solid yellow;
+	border-radius: 40px;
+}
+.pending
+{
+    border: 2px solid rgb(161, 161, 161);
+	border-radius: 40px;
+    transition: ease 0.5s;
+}
+
+.pending:hover
+{
+    border: 2px solid gray;
+	border-radius: 40px;
+}
+.canceled
+{
+    border: 2px solid rgb(161, 161, 161);
+	border-radius: 40px;
+    transition: ease 0.5s;
+}
+
+.canceled:hover
+{
+    border: 2px solid rgb(145, 0, 0);
+	border-radius: 40px;
+}
+
+.single_video_details
+{
+    border: 2px solid rgb(145, 0, 0);
+	border-radius: 40px;
+    border: 2px solid rgb(161, 161, 161);
+    margin: 25px;
+    background-color: white;
+    color: #0f0f0f;
+}
+
+#engagementChart
+{
+    width: 40vw;
+}
+
+#index_auth_button:hover
+{
+	background-color: rgb(206, 116, 116);
+}

@@ -1,0 +1,17 @@
+{% extends 'engTrack/layout.html' %}
+
+{% block title %}Список дел{% endblock %}
+
+{% block content %}
+    <div class = "featuring">
+        <h1>Отслеживание увлеченности</h1>
+        <p>Этот сервис позволяет отслеживать увлеченность людей на видео.</p>
+        {% if request.user.is_authenticated %}
+        <p>Добро пожаловать, {{ request.user.get_full_name }}! Можете приступать к <a href="{% url 'dashboard' %}">анализу</a> ваших видео.</p>
+        {% else %}
+        <p id = "index_auth_button"><a href="{% url 'login' %}">Авторизироваться</a></p>
+        {% endif %}
+
+
+    </div>
+{% endblock %}

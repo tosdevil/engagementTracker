@@ -1,0 +1,55 @@
+{% extends 'engTrack/layout.html' %}
+
+{% block title %}база!{% endblock %}
+
+{% block content %}
+    <div class = "featuring">
+        <h1>Ваши видео:</h1>
+        <p>Здесь находятся ваши видеоролики.</p>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'upload' %}"><i class="bi bi-plus-circle-fill button_add"></i></a>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        {% for el in videos %}
+            {% if el.video_author == request.user or request.user.is_staff %}
+            {% if el.status == "done" %}
+            <div class = 'single_video_frame done'>
+                <a href = "{% url 'video_details' el.id %}">
+                <h4>{{ el.video_name }}</h4>
+                <p>Средняя оценка вовлеченности: {{ el.average_engagement_percentage }}%</p>
+                <p>Дата публикации: {{ el.video_upload_date|date:"d.m.Y" }}</p>
+                {% if request.user.is_staff %}
+                <p>Автор: {{ el.video_author.get_full_name }}</p>
+                {% endif %}
+                </a>
+            </div>
+            {% endif %}
+            {% if el.status == "processing" %}
+            <div class = 'single_video_frame processing'>
+                <p>{{ el.video_name }}</p>
+                <p>Обработка: {{ el.video_processing_percentage }}%</p>
+                <p>Дата публикации: {{ el.video_upload_date|date:"d.m.Y" }}</p>
+            </div>
+            {% endif %}
+            {% if el.status == "pending" %}
+            <div class = 'single_video_frame pending'>
+                <p>{{ el.video_name }}</p>
+                <p>В очереди</p>
+                <p>Дата публикации: {{ el.video_upload_date|date:"d.m.Y" }}</p>
+            </div>
+            {% endif %}
+            {% if el.status == "canceled" %}
+            <div class = 'single_video_frame canceled'>
+                <p>{{ el.video_name }}</p>
+                <p>Отменено</p>
+                <p>Дата публикации: {{ el.video_upload_date|date:"d.m.Y" }}</p>
+            </div>
+            {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% else %}
+            <p>Чтобы создавать дела, нужно <a href="{% url 'login' %}">авторизироваться</a>.</p>
+        {% endif %}
+
+    </div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'engTrack/layout.html' %}
+
+{% block title %}Загрузка видео{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data" id="uploadForm">
+    {% csrf_token %}
+    <div class="video_upload_field">
+        <label for="video_file">Загрузите видео:</label>
+        <input type="file" name="video_file" id="video_file" required>
+
+        <button type="submit" id="upload_button">Загрузить</button>
+    </div>
+
+    <div id="progressContainer" style="display: none;">
+        <progress id="progressBar" value="0" max="100"></progress>
+        <span id="progressText">0%</span>
+    </div>
+
+    <div id="completionMessage" style="display: none; margin-top: 10px; color: green;">
+        Загрузка завершена, страничку можно закрыть.
+    </div>
+</form>
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Предотвращаем стандартное поведение формы
+    
+        const form = event.target;
+        const formData = new FormData(form);
+    
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', form.action, true);
+    
+        // Обновление прогресса
+        xhr.upload.addEventListener('progress', function(event) {
+            if (event.lengthComputable) {
+                const percent = Math.round((event.loaded / event.total) * 100);
+                const progressBar = document.getElementById('progressBar');
+                const progressText = document.getElementById('progressText');
+                const completionMessage = document.getElementById('completionMessage');
+    
+                progressBar.value = percent;
+                progressText.textContent = percent + '%';
+    
+                // Показываем контейнер прогресса
+                document.getElementById('progressContainer').style.display = 'block';
+    
+                // Показ сообщения при 100%
+                if (percent === 100) {
+                    completionMessage.style.display = 'block';
+                }
+            }
+        });
+    
+        // Обработка завершения загрузки
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                // Можно добавить любое дополнительное действие после успешной загрузки
+            } else {
+                alert('Ошибка загрузки: ' + xhr.statusText);
+            }
+        };
+    
+        // Обработка ошибок
+        xhr.onerror = function() {
+            alert('Произошла ошибка при загрузке.');
+        };
+    
+        // Отправка данных
+        xhr.send(formData);
+    });
+    </script>
+    
+{% endblock %}

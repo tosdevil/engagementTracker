@@ -1,0 +1,86 @@
+{% extends 'engTrack/layout.html' %}
+
+{% block title %}Обзор: {{ object.video_name }}{% endblock %}
+
+{% block content %}
+    {% if object.video_author == request.user or request.user.is_staff %}
+    <div class="single_video_details">
+        <canvas id="engagementChart"></canvas>
+    
+
+    <p class="like_counter">Название видео: {{ object.video_name }}</p>
+    <p class="like_counter">Средняя оценка вовлеченнсти: {{ object.average_engagement_percentage }}%</p>
+    <p class="like_counter">Дата публикации: {{ object.video_upload_date|date:"d.m.Y" }}</p>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Массивы для осей X, Y и дополнительной информации
+        var timecodes = [];
+        var engagementPercentages = [];
+        var totalFaces = [];
+        var engagedFaces = [];
+
+        {% for video_stat in videostats_list %}
+        {% if video_stat.video_source.id == object.id %}
+            timecodes.push("{{ video_stat.timecode|date:'H:i:s' }}");
+            engagementPercentages.push({{ video_stat.engagement_percentage }});
+            totalFaces.push({{ video_stat.total_faces }});
+            engagedFaces.push({{ video_stat.engaged_faces }});
+        {% endif %}
+        {% endfor %}
+
+        // Создание графика с использованием Chart.js
+        var ctx = document.getElementById('engagementChart').getContext('2d');
+        var engagementChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: timecodes,  // Ось X: время
+                datasets: [{
+                    label: 'Оценка вовлеченности',  // Легенда графика
+                    data: engagementPercentages,  // Ось Y: процент вовлеченности
+                    borderColor: 'rgb(75, 192, 192)',  // Цвет линии
+                    fill: false,
+                    pointBackgroundColor: 'rgb(75, 192, 192)',  // Цвет точек на графике
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Время'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Процент вовлеченности'
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            // Настроим всплывающую подсказку
+                            label: function(tooltipItem) {
+                                var index = tooltipItem.dataIndex;
+                                return [
+                                    'Число вовлеченных лиц: ' + engagedFaces[index],
+                                    'Общее число лиц: ' + totalFaces[index],
+                                    'Процент вовлеченности: ' + engagementPercentages[index] + '%',
+                                    'Таймкод: ' + timecodes[index],
+                                ];
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    {% else %}
+    <p>у вас нет доступа к просмотру данной странички</p>
+    {% endif %}
+{% endblock %}

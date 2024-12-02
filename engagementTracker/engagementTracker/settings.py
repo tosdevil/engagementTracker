@@ -26,10 +26,10 @@ SECRET_KEY = 'django-insecure-)1r#ja#d2zi9*hwu257f!d573@r311cl235#(1x4m4&-%3mysd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['c70e-176-115-44-51.ngrok-free.app','127.0.0.1']
+ALLOWED_HOSTS = ['engagement-tracker-engtracker-gkyqrh-389a67-82-117-87-63.traefik.me','127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://c70e-176-115-44-51.ngrok-free.app'
+    'https://engagement-tracker-engtracker-gkyqrh-389a67-82-117-87-63.traefik.me/'
 ]
 
 

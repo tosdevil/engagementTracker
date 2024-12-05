@@ -11,7 +11,7 @@
 
 body
 {
-    background-color: #0f0f0f;
+    background-color: #ffc3d9a6;
 }
 
 header
@@ -20,7 +20,7 @@ header
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    background: pink;
+    background: lightpink;
 }
 
 header ul 
@@ -92,6 +92,11 @@ main
     text-align: center;
     background-color: #0f0f0f;
     color: white;
+    margin-top: 15%;
+    background: lightpink;
+    border-radius: 35px;
+    margin-left: 15%;
+    margin-right: 15%;
 }
 
 footer
@@ -111,6 +116,8 @@ footer
 	background-color: rgb(231, 130, 130);
     /* width: 300px; */
     transition: 0.5s ease;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 #index_auth_button a

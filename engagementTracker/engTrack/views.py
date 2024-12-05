@@ -40,6 +40,7 @@ def upload_video(request):
         video_file = request.FILES['video_file']
         video = Video.objects.create(
             video_name=video_file.name,
+            video_file = f'media/videos/{video_file.name}',
             video_author=request.user
         )
         video_path = f'media/videos/{video_file.name}'
